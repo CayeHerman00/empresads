@@ -35,7 +35,7 @@ public class Empleados implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-/*casojinuai*/
+	
 	@NotNull(message = "No puede estar vacio")
 	@Size(max=20)
 	@Column(name = "Nombre", nullable = false)
