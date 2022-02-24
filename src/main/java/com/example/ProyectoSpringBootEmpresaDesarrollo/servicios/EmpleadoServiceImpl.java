@@ -16,31 +16,29 @@ public class EmpleadoServiceImpl implements EmpleadoServiceI{
 
 	@Override
 	public List<Empleados> obtenerTodosEmpleados() {
-		// TODO Auto-generated method stub
-		return null;
+		return empleadoRepositorio.findAll();
 	}
 
-	@Override
+	/*@Override
 	public List<Empleados> obtenerEmpleadosPorProyecto(Long IdProyecto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return empleadoRepositorio.findByProyecto(IdProyecto);
+	}*/
 
 	@Override
 	public void eliminarEmpleadoPorId(long Id) {
-		// TODO Auto-generated method stub
+		empleadoRepositorio.deleteById(Id);
 		
 	}
 
 	@Override
 	public void aniadirEmpleado(Empleados empleado) {
-		// TODO Auto-generated method stub
+		empleadoRepositorio.save(empleado);	
 		
 	}
 
 	@Override
 	public void actualizarEmpleado(Empleados empleado) {
-		// TODO Auto-generated method stub
+		empleadoRepositorio.save(empleado);	
 		
 	}
 }

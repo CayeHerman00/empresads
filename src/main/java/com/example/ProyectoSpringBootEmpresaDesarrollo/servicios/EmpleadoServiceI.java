@@ -8,7 +8,7 @@ public interface EmpleadoServiceI {
 
 	public List<Empleados> obtenerTodosEmpleados();
 
-	public List<Empleados> obtenerEmpleadosPorProyecto(final Long Id);
+	//public List<Empleados> obtenerEmpleadosPorProyecto(final Long Id);
 
 	public void eliminarEmpleadoPorId(final long Id);
 
