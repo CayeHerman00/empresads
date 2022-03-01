@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ProyectoSpringBootEmpresaDesarrollo.entidades.Empleados;
+import com.example.ProyectoSpringBootEmpresaDesarrollo.entidades.Proyectos;
 import com.example.ProyectoSpringBootEmpresaDesarrollo.repositorio.EmpleadoRepositorioI;
 
 @Service
@@ -40,5 +41,17 @@ public class EmpleadoServiceImpl implements EmpleadoServiceI{
 	public void actualizarEmpleado(Empleados empleado) {
 		empleadoRepositorio.save(empleado);	
 		
+	}
+	
+	@Override
+	public Empleados obtenerEmpleadoPorId(long Id) {
+		Empleados p = empleadoRepositorio.findEmpleadosByID(Id);
+		return p;
+	}
+
+	@Override
+	public List<Empleados> obtenerEmpleadosPorProyecto(Long Id) {
+		List<Empleados> lista = empleadoRepositorio.findByProyecto(Id);
+		return lista;
 	}
 }

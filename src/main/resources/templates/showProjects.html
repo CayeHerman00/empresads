@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>PROYECTOS</title>
+		<title>EMPRESA DE SOFTWARE</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	</head>
@@ -15,26 +15,30 @@
 						<tr>
 							<th scope="col">ID del proyecto</th>
 							<th scope="col">Titulo</th>
-							<th scope="col">Descripción</th>
-							<th scope="col">Fecha inicio</th>
-							<th scope="col">Fecha fin</th>
-							<th scope="col" th:hidden="${btnDropCarEnabled}">Eliminar</th>
+							<th scope="col">Descripcion</th>
+							<th scope="col">Inicio</th>
+							<th scope="col">Fin</th>
+							<th scope="col" th:hidden="${btnDropProyectoEnabled}">Eliminar</th>
+							<th scope="col">Actualizar</th>
 						</tr>
 					</thead>
 					<tbody>
-						<th:block th:each="car : ${carsListView}">
+						<th:block th:each="emp : ${proyectosListView}">
 							<tr>
-								<td scope="row" th:text="${car.id}" />
-								<td scope="row" th:text="${car.titulo}" />
-								<td scope="row" th:text="${car.descripcion}" />
-								<td scope="row" th:text="${car.fecha_inicio}" />
-								<td scope="row" th:text="${car.fecha_fin}" />
-								<td scope="row" th:hidden="${btnDropCarEnabled}">
-									<form action="actDropCar" method="post">
-										<button th:disabled="${btnDropCarEnabled}" type="submit"
-											id="btnDropCar" name="carId" th:value="${car.id}"
+								<td scope="row" th:text="${emp.id}" />
+								<td scope="row" th:text="${emp.titulo}" />
+								<td scope="row" th:text="${emp.descripcion}" />
+								<td scope="row" th:text="${emp.fecha_inicio}" />
+								<td scope="row" th:text="${emp.fecha_fin}" />
+								<td scope="row" th:hidden="${btnDropProyectoEnabled}">
+									<form action="actDropProyecto" method="post">
+										<button th:disabled="${btnDropProyectoEnabled}" type="submit"
+											id="btnDropProyecto" name="proyectoId" th:value="${emp.id}"
 											class="btn btn-danger">▼</button>
 									</form>
+								</td>
+								<td>
+									<a th:href="@{/actUpdProyecto(proyectoId=${emp.id})}" class="btn btn-info">Update</a>
 								</td>
 							</tr>
 						</th:block>

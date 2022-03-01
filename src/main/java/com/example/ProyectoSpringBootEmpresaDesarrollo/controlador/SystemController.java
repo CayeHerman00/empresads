@@ -31,9 +31,34 @@ public class SystemController {
 		//Redirecciona a la plantilla de insercción
 		@GetMapping("/newProjectView")
 		public String redirectToNewProjectTemplate() {
-			return "newCar";
+			return "newProject";
 		}
 		
+		
 		//EMPLEADOS
-	
+		
+		//Redirecciona al controlador de gestión de empleados
+		@GetMapping("/ShowAllEmployees")
+		public String redirectToShowAllEmployeesController() {
+			return "redirect:showEmployeesView";
+		}
+		
+		//Redirecciona a la plantilla de insercción
+		@GetMapping("/newEmployeeView")
+		public String redirectToNewEmployeeTemplate() {
+			return "newEmployee";
+		}
+		
+		@GetMapping("/ShowEmployeesProyectView")
+		public String redirectToShowEmployeesProjectController() {
+			return "showEmployeesByProject";
+		}
+		
+		@GetMapping("/ShowProjectsEmployeeView")
+		public String redirectToShowProjectEmployeesController() {
+			return "showProjectsByEmployee";
+		}
+		
+		
+		
 }

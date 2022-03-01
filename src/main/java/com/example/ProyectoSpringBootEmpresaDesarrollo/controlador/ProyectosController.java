@@ -1,5 +1,7 @@
 package com.example.ProyectoSpringBootEmpresaDesarrollo.controlador;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +17,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.ProyectoSpringBootEmpresaDesarrollo.entidades.Empleados;
 import com.example.ProyectoSpringBootEmpresaDesarrollo.entidades.Proyectos;
 import com.example.ProyectoSpringBootEmpresaDesarrollo.servicios.ProyectoServiceI;
 
 @Controller
 public class ProyectosController {
+	
+	private long idU = 0L;
 
 	@Autowired
 	private ProyectoServiceI service;
@@ -28,81 +33,96 @@ public class ProyectosController {
 	public String mostrarProyectos(Model model) {
 
 		// Obtención de vehículos
-		final List<Proyectos> listaCoches = service.obtenerTodosProyectos();
+		final List<Proyectos> listaProyectos = service.obtenerTodosProyectos();
 
 		// Carga de datos al modelo
-		model.addAttribute("carsListView", listaCoches);
+		model.addAttribute("proyectosListView", listaProyectos);
 		model.addAttribute("btnDropCarEnabled", Boolean.FALSE);
 
-		return "ShowProjects";
+		return "showProjects";
 	}
-
-	/*@PostMapping("/actDropCar")
-	public String eliminarCoche(@RequestParam String carId, Model model) {
+	
+	@PostMapping("/actDropProyecto")
+	public String eliminarProyecto(@RequestParam String proyectoId, Model model) {
 
 		// Eliminación de vehículo
-		cocheServiceI.eliminarCochePorId(Long.valueOf(carId));
+		service.eliminarProyectoPorId(Long.valueOf(proyectoId));
 
-		return "redirect:showCarsView";
-
-	}
-*/
-	/*@PostMapping("/actSearchCar")
-	public String submitBuscarCocheForm(@ModelAttribute Coche searchedCar, Model model) throws Exception {
-
-		List<Coche> listaCoches = new ArrayList<Coche>();
-		
-		System.out.println(searchedCar.getMarca());
-
-		final String cocheMatricula = searchedCar.getMatricula();
-		final String cocheMarca = searchedCar.getMarca();
-		final String cocheModelo = searchedCar.getModelo();
-
-		System.out.println(cocheMatricula);
-		if (StringUtils.hasText(cocheMatricula)) {
-
-			// Búsqueda por matrícula
-			final Coche coche = cocheServiceI.obtenerCochePorMatricula(cocheMatricula);
-
-			if (coche != null) {
-				listaCoches.add(coche);
-			}
-		} else if (!StringUtils.hasText(cocheMatricula)
-				&& (StringUtils.hasText(cocheMarca) || StringUtils.hasText(cocheModelo))) {
-
-			// Búsqueda por marca o modelo
-			listaCoches = cocheServiceI.obtenerCochePorMarcaOModelo(cocheMarca, cocheModelo);
-
-		} else if (!StringUtils.hasText(cocheMatricula)
-				&& (StringUtils.hasText(cocheMarca) && StringUtils.hasText(cocheModelo))) {
-
-			listaCoches = cocheServiceI.obtenerCochePorMarcaYModelo(cocheMarca, cocheModelo);
-
-		} else {
-			throw new Exception("Parámetros de búsquieda erróneos.");
-		}
-
-		// Carga de datos al modelo
-		model.addAttribute("carsListView", listaCoches);
-		model.addAttribute("btnDropCarEnabled", Boolean.TRUE);
-
-		return "showCars";
+		return "redirect:showProjectsView";
 
 	}
 
-	@PostMapping("/actAddCar")
-	private String aniadirCoche(@Valid @ModelAttribute Coche newCar, BindingResult result) throws Exception {
+	@PostMapping("/actProjectAdd")
+	private String aniadirProyecto(@Valid @ModelAttribute Proyectos Project, BindingResult result) throws Exception {
 
 		if (result.hasErrors()) {
-			throw new Exception("Parámetros de matriculación erróneos");
+			throw new Exception("Parámetros de id erróneos");
 		} else {
 
 			// Se añade el nuevo coche
-			cocheServiceI.aniadirCoche(newCar);
+			service.aniadirProyecto(Project);
 		}
 
-		return "redirect:showCarsView";
-	}*/
-
+		return "redirect:showProjectsView";
+	}
 	
+	//actUpdProyecto
+	
+	@GetMapping("/actUpdProyecto")
+	public String recogerProyecto(String proyectoId, Model model) {
+		
+	  
+		idU = Long.valueOf(proyectoId);
+	  
+	  Proyectos p = service.obtenerProyectoPorId(Long.valueOf(proyectoId));
+
+	//Carga de datos al modelo
+	  model.addAttribute("titulo", p.getTitulo());
+	  model.addAttribute("descripcion", p.getDescripcion());
+	  model.addAttribute("fecha_inicio", p.getFecha_inicio());
+	  model.addAttribute("fecha_fin", p.getFecha_fin());
+	  
+				
+		return "editProyecto";
+	}
+
+	@GetMapping("/actEditProject")
+	public String editarFutbolista(@Valid @ModelAttribute Proyectos Proyecto, BindingResult result) throws Exception {
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+		Proyectos f = new Proyectos();
+
+		f.setTitulo(Proyecto.getTitulo());
+		f.setDescripcion(Proyecto.getDescripcion());
+		f.setFecha_inicio(Proyecto.getFecha_inicio());
+		f.setFecha_fin(Proyecto.getFecha_fin());
+		
+		
+		
+		if (result.hasErrors()) {
+			throw new Exception("Parámetros de id erróneos");
+		}
+		else {
+			
+			service.eliminarProyectoPorId(idU);
+			service.actualizarProyecto(Proyecto);
+			
+		}
+		
+
+		return "redirect:showProjectsView";
+	}
+	
+	@PostMapping("/actSearchProyectosEmp")
+	public String submitBuscaProyectosPorEmpleado(@RequestParam long id, Model model) throws Exception {
+
+		List<Proyectos> listaProyectos = service.obtenerProyectosPorEmpleado(id);
+
+		model.addAttribute("proyectosListView", listaProyectos);
+		model.addAttribute("btnDropCarEnabled", Boolean.FALSE);
+
+		return "showProjects";
+
+	}
 }

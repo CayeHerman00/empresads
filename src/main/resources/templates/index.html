@@ -9,7 +9,13 @@
 	<body class="card-body">
 
 		<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-		    <a class="navbar-brand" th:href="@{/ShowAllProjects}" role="button">Ver todos los PROYECTOS.</a>
+		    <a class="navbar-brand" th:href="@{/ShowAllProjects}" role="button">Ver todos los PROYECTOS.</a><br>
+		    <a class="navbar-brand" th:href="@{/ShowAllEmployees}" role="button">Ver todos los EMPLEADOS.</a>
+		    <!--<a class="navbar-brand" th:href="@{/searchCarByView}" role="button">Buscar Empleado.</a>-->
+			<a class="navbar-brand" th:href="@{/newEmployeeView}" role="button">Añadir Empleado.</a>
+			<a class="navbar-brand" th:href="@{/newProjectView}" role="button">Añadir Proyecto.</a>
+			<a class="navbar-brand" th:href="@{/ShowEmployeesProyectView}" role="button">Ver todos los empleados por proyecto.</a>
+			<a class="navbar-brand" th:href="@{/ShowProjectsEmployeeView}" role="button">Ver todos los proyectos por empleado.</a>
 		</nav>
 	
 		<div class="card text-white bg-dark mb-3">

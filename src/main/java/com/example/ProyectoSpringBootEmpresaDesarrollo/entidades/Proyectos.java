@@ -23,8 +23,13 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "dam_proyectos")
+@Data @AllArgsConstructor @NoArgsConstructor
 public class Proyectos {
 	
 	/** SERIAL ID */
@@ -46,12 +51,12 @@ public class Proyectos {
 	private String descripcion;
 	
 	@NotNull(message = "No puede estar vacio")
-	@Size(max=20)
+	//@Size(max=20)
 	@Column(name = "Fecha_Inicio", nullable = false)
 	private Date fecha_inicio;
 	
 	@NotNull(message = "No puede estar vacio")
-	@Size(max=20)
+	//@Size(max=20)
 	@Column(name = "Fecha_Fin", nullable = false)
 	private Date fecha_fin;
 	

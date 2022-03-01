@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>EMPRESA DE SOFTWARE</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	</head>
+	<body class="card-body">
+		<div class="card text-white bg-dark mb-3">
+		  	<div class="card-header">Empleados</div>
+			<div class="card-body">
+				<table class="table table-striped table-dark">
+					<thead class="thead-light">
+						<tr>
+							<th scope="col">ID del empleado</th>
+							<th scope="col">Nombre</th>
+							<th scope="col">Apellidos</th>
+							<th scope="col">Nacimiento</th>
+							<th scope="col">DNI</th>
+							<th scope="col" th:hidden="${btnDropEmpleadoEnabled}">Eliminar</th>
+							<th scope="col">Actualizar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="emp : ${empleadosListView}">
+							<tr>
+								<td scope="row" th:text="${emp.id}" />
+								<td scope="row" th:text="${emp.nombre}" />
+								<td scope="row" th:text="${emp.apellidos}" />
+								<td scope="row" th:text="${emp.fecha_nac}" />
+								<td scope="row" th:text="${emp.DNI}" />
+								<td scope="row" th:hidden="${btnDropEmpleadoEnabled}">
+									<form action="actDropEmpleado" method="post">
+										<button th:disabled="${btnDropEmpleadoEnabled}" type="submit"
+											id="btnDropCar" name="empleadoId" th:value="${emp.id}"
+											class="btn btn-danger">▼</button>
+									</form>
+								</td>
+								<td>
+									<a th:href="@{/actUpdEmpleado(empleadoId=${emp.id})}" class="btn btn-info">Update</a>
+								</td>
+							</tr>
+						</th:block>
+						
+						<!-- 
+							<th:block th:each="ingreso : ${IngresosListView}">
+						<tr>
+							<td scope="row" th:text="${ingreso.codigo}" />
+							<td scope="row" th:text="${ingreso.numerohabitacion}" />
+							<td scope="row" th:text="${ingreso.cama}" />
+							<td scope="row" th:text="${ingreso.fechaingreso}" />
+							<td scope="row" th:text="${ingreso.medico.nombre}" />
+							<td scope="row" th:text="${ingreso.paciente.nombre}" />
+							<td scope="row" th:hidden="${btnDropIngresoEnabled}">
+								<form action="actDropIngreso" method="post">
+									<button th:disabled="${btnDropIngresoEnabled}" type="submit" id="btnDropIngreso"
+										name="ingresoId" th:value="${ingreso.codigo}" class="btn btn-danger">▼</button>
+								</form>
+							</td>
+						</tr>
+					</th:block>
+							
+						-->
+						
+					</tbody>
+				</table>
+				<a class="btn btn-primary" th:href="@{index}" id="aBtnReturn" role="button">Volver</a>
+			</div>
+		</div>
+	</body>
+</html>

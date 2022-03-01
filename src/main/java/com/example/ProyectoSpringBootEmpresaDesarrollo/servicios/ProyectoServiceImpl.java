@@ -30,6 +30,13 @@ public class ProyectoServiceImpl implements ProyectoServiceI{
 		proyectoRepositorio.deleteById(Id);
 		
 	}
+	
+	@Override
+	public Proyectos obtenerProyectoPorId(long Id) {
+		Proyectos p = proyectoRepositorio.findProyectoByID(Id);
+		return p;
+	}
+
 
 	@Override
 	public void aniadirProyecto(Proyectos proyecto) {
@@ -41,6 +48,12 @@ public class ProyectoServiceImpl implements ProyectoServiceI{
 	public void actualizarProyecto(Proyectos proyecto) {
 		proyectoRepositorio.save(proyecto);
 		
+	}
+	
+	@Override
+	public List<Proyectos> obtenerProyectosPorEmpleado (Long id) {
+		List<Proyectos> lista = proyectoRepositorio.findByEmpleado(id);
+		return lista;
 	}
 
 }
