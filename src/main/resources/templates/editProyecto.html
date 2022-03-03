@@ -17,8 +17,8 @@
 		<div class="card-body">
 			<form th:action="@{/actEditProject}" th:object="${Proyecto}">
 			
-			<input type="hidden" required="required" class="form-control" id="inpCodigo" name="teamId"
-						th:value="${teamId}">
+			<input type="hidden" required="required" class="form-control" id="inpCodigo" name="proyectoId"
+						th:value="${proyectoId}">
 			
 				<div class="form-group">
 					<label for="inpTitulo">Titulo</label>
@@ -42,7 +42,7 @@
 				</div>
 			
 
-				<button type="submit" name="btnEditTeam" class="btn btn-success">Editar</button>
+				<button type="submit" name="btnEditProject" class="btn btn-success">Editar</button>
 				<a class="btn btn-danger" href="index" role="button" id="aBtnReturn">Cancelar</a>
 			</form>
 		</div>

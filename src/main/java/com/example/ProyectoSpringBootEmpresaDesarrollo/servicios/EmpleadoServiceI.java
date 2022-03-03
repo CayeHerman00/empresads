@@ -19,4 +19,6 @@ public interface EmpleadoServiceI {
 
 	public void actualizarEmpleado(final Empleados empleado);
 	
+	public void insertarProyectoEmpleado(final long id_proyectos, final long id_empleados);
+	
 }

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>NUEVA RELACION</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	</head>
+	<br>
+		<body class="card-body">
+		<div class="card text-white bg-dark mb-3">
+		  <div class="card-header">Datos del proyecto.</div>
+		  <div class="card-body">
+				<form th:action="@{/actAddProjectEmployee}" th:object="${ProEmple}" method="POST">
+				
+				<div class="form-group">
+						<label for="inpEmpleado">Empleado</label>
+						<select class="form-control" name="idEmpleado" required="required">
+							<option th:each="empU : ${EmpleadosListView}" th:text="${empU.id}"  th:value="${{empU.id}}"></option>
+						</select>
+					</div>
+
+				<div class="form-group">
+					<label for="inpProyecto">Proyecto</label>
+					<select class="form-control" name="idProyecto">
+						<option th:each="prou : ${ProyectosListView}" th:text="${prou.id}" th:value="${{prou.id}}"></option>
+					</select>
+				</div>
+				
+					
+					<button type="submit" name="btnAddRelation" class="btn btn-success">Añadir</button>
+					<a class="btn btn-primary" href="index" role="button" id="aBtnReturn">Volver</a>
+				</form>
+			  </div>
+			</div>
+	</body>
+</html>

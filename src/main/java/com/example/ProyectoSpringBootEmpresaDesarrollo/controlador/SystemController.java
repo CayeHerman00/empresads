@@ -59,6 +59,12 @@ public class SystemController {
 			return "showProjectsByEmployee";
 		}
 		
+		@GetMapping("/newProjectEmployee")
+		public String redirectToNewProjectEmployeesController() {
+			return "newProjectEmployeeA";
+		}
+		
+		
 		
 		
 }

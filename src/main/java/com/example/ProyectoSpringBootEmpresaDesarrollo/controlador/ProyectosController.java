@@ -87,9 +87,7 @@ public class ProyectosController {
 	}
 
 	@GetMapping("/actEditProject")
-	public String editarFutbolista(@Valid @ModelAttribute Proyectos Proyecto, BindingResult result) throws Exception {
-
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	public String editarProyecto(@Valid @ModelAttribute Proyectos Proyecto, BindingResult result) throws Exception {
 
 		Proyectos f = new Proyectos();
 

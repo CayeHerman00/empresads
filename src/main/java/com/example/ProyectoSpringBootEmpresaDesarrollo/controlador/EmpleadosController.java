@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.ProyectoSpringBootEmpresaDesarrollo.entidades.Empleados;
+import com.example.ProyectoSpringBootEmpresaDesarrollo.entidades.ProyectoEmpleado;
 import com.example.ProyectoSpringBootEmpresaDesarrollo.entidades.Proyectos;
 import com.example.ProyectoSpringBootEmpresaDesarrollo.servicios.EmpleadoServiceI;
+import com.example.ProyectoSpringBootEmpresaDesarrollo.servicios.ProyectoServiceI;
 
 @Controller
 public class EmpleadosController {
@@ -25,6 +27,8 @@ public class EmpleadosController {
 	
 	@Autowired
 	private EmpleadoServiceI service;
+	@Autowired
+	private ProyectoServiceI serviceP;
 	
 	@GetMapping("/showEmployeesView")
 	public String mostrarEmpleados(Model model) {
@@ -116,6 +120,56 @@ public class EmpleadosController {
 		return "showEmployees";
 
 	}
+	
+	@GetMapping("/newProjectEmployeeA")
+	private String aniadirListasProyectosEmpleados(Model model) {
+
+		final List<Proyectos> proyectos = serviceP.obtenerTodosProyectos();
+		final List<Empleados> empleados = service.obtenerTodosEmpleados();
+
+		// Carga de datos al modelo
+		model.addAttribute("ProyectosListView", proyectos);
+		model.addAttribute("EmpleadosListView", empleados);
+
+		return "newRelation";
+
+	}
+
+	@PostMapping("/actAddProjectEmployee")
+	private String aniadirEmpPro(@Valid @ModelAttribute ProyectoEmpleado ProEmple, BindingResult result)
+			throws Exception {
+		System.out.println(ProEmple.toString());
+		
+		if (result.hasErrors()) {
+			throw new Exception("Parámetros de matriculación erróneos");
+		} else {
+			//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			//Date date = formatter.parse(modelo.getTemporada());
+	
+			/*System.out.println(modelo.getEquipo());
+			System.out.println(modelo.getFutbolista());
+			System.out.println(date);*/
+	
+			Empleados f = service.obtenerEmpleadoPorId(Long.valueOf(ProEmple.getIdEmpleado()));
+			Proyectos e = serviceP.obtenerProyectoPorId(Long.valueOf(Long.valueOf(ProEmple.getIdProyecto())));
+
+	
+			ProyectoEmpleado ef = new ProyectoEmpleado();
+			ef.setIdEmpleado(f.getId());
+			ef.setIdProyecto(e.getId());
+			
+			service.insertarProyectoEmpleado(ef.getIdProyecto(), ef.getIdEmpleado());
+		
+
+			// Se añade el nuevo coche
+			//service.aniadirEquipoFut(ef);
+
+		}
+
+		return "redirect:index";
+	}
+	
+	
 	
 
 }

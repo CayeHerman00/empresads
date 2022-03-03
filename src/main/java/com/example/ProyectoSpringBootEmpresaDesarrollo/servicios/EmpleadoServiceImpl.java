@@ -54,4 +54,10 @@ public class EmpleadoServiceImpl implements EmpleadoServiceI{
 		List<Empleados> lista = empleadoRepositorio.findByProyecto(Id);
 		return lista;
 	}
+
+	@Override
+	public void insertarProyectoEmpleado(long id_proyectos, long id_empleados) {
+		empleadoRepositorio.insProyecto(id_proyectos,id_empleados);	
+		
+	}
 }
